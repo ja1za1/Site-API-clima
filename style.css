@@ -58,19 +58,24 @@ h1 {
     }
 }
 
-@media screen and (max-width: 345px) {
+
+@media screen and (max-width: 404px) {
     #formPesquisa {
         width: 90% !important;
     }
     #info-clima {
         width: 100% !important;
     }
-    #temperatura {
-        font-size: 4rem !important;
-    }
     .position-left-corner {
         bottom: 1% ;
         left: 1% ;
+    }
+}
+
+@media screen and (max-width: 320px) {
+
+    #temperatura {
+        font-size: 3rem !important;
     }
 }
 
