@@ -1,11 +1,32 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato&family=Montserrat&display=swap');
 
 
-* {
+*{
     margin: 0 !important;
     padding: 0 !important;
     box-sizing: border-box !important;
     font-family: 'Lato', sans-serif;
+}
+
+.modal-dialog{
+    margin: var(--bs-modal-margin) !important;
+    margin-right: auto !important;
+    margin-left: auto !important;
+}
+.modal-header {
+    padding: var(--bs-modal-header-padding) !important;
+}
+
+.modal-body {
+    padding: var(--bs-modal-padding) !important;
+}
+
+.modal-footer {
+    padding: calc(var(--bs-modal-padding) - var(--bs-modal-footer-gap) * .5) !important;
+}
+
+.modal-footer>* {
+    margin: calc(var(--bs-modal-footer-gap) * .5) !important;
 }
 
 h1 {
