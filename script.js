@@ -204,12 +204,11 @@ function realizarConsulta(){
                 document.getElementById("fundoApp").style.background = 'linear-gradient(to left, ' + corDeFundo + ', white)';
             }
             
-
             document.getElementById("temperaturaMin").innerHTML = valorTemperaturaMin + letraTemperatura
             document.getElementById("temperatura").innerHTML = valorTemperatura + letraTemperatura
             document.getElementById("temperaturaMax").innerHTML = valorTemperaturaMax + letraTemperatura
             document.getElementById("descricao").innerHTML = resp_obj.weather[0].description
-            document.getElementById("velocidadeVento").innerHTML = resp_obj.wind.speed + (unidadeMedida === 'imperial' ? ' mph' : ' km/h')
+            document.getElementById("velocidadeVento").innerHTML = obterQuilometroHora(resp_obj.wind.speed) + (unidadeMedida === 'imperial' ? ' mph' : ' km/h')
             document.getElementById("cidade").innerHTML = resp_obj.name
             var codigoIcone = resp_obj.weather[0].icon
             var icone = "https://openweathermap.org/img/wn/" + codigoIcone + "@4x.png";
@@ -244,6 +243,10 @@ function obterEscalaTemperatura(){
     else{
         return "K"
     }
+}
+
+function obterQuilometroHora(medidaMetroSegundo){
+    return Math.trunc(medidaMetroSegundo * 3.6)
 }
 
 function obterTemperaturaCelsius(temperatura){
