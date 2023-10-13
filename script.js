@@ -179,7 +179,6 @@ function realizarConsulta(){
         resp_obj = JSON.parse(resp);
         const textoErro = document.getElementById("textoErro")
         
-        console.log(resp_obj)
         if(resp_obj.cod === 200){
             if(!textoErro.classList.contains("invisible")){
                 textoErro.classList.add("invisible")
@@ -208,7 +207,7 @@ function realizarConsulta(){
             document.getElementById("temperatura").innerHTML = valorTemperatura + letraTemperatura
             document.getElementById("temperaturaMax").innerHTML = valorTemperaturaMax + letraTemperatura
             document.getElementById("descricao").innerHTML = resp_obj.weather[0].description
-            document.getElementById("velocidadeVento").innerHTML = obterQuilometroHora(resp_obj.wind.speed) + (unidadeMedida === 'imperial' ? ' mph' : ' km/h')
+            document.getElementById("velocidadeVento").innerHTML = Math.trunc(obterQuilometroHora(resp_obj.wind.speed)) + (unidadeMedida === 'imperial' ? ' mph' : ' km/h')
             document.getElementById("cidade").innerHTML = resp_obj.name
             var codigoIcone = resp_obj.weather[0].icon
             var icone = "https://openweathermap.org/img/wn/" + codigoIcone + "@4x.png";
@@ -225,8 +224,6 @@ function realizarConsulta(){
         }
         
     }
-    console.log(lingua)
-    console.log(unidadeMedida)
     req.open('GET', "https://api.openweathermap.org/data/2.5/weather?q=" + cidadeDigitada + "&appid=" + API_KEY + "&lang=" + lingua + "&units=" + unidadeMedida);
     req.send(null);
     
@@ -246,7 +243,7 @@ function obterEscalaTemperatura(){
 }
 
 function obterQuilometroHora(medidaMetroSegundo){
-    return Math.trunc(medidaMetroSegundo * 3.6)
+    return medidaMetroSegundo * 3.6
 }
 
 function obterTemperaturaCelsius(temperatura){
