@@ -38,7 +38,7 @@ h1 {
 
 @media screen and (max-width: 1040px) {
     #formPesquisa {
-        width: 40% !important;
+        width: 60% !important;
     }
     #info-clima {
         width: 75% !important;
@@ -63,9 +63,7 @@ h1 {
     #formPesquisa {
         width: 90% !important;
     }
-    #info-clima {
-        width: 100% !important;
-    }
+    
     .position-left-corner {
         bottom: 1% ;
         left: 1% ;
