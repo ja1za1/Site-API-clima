@@ -14,4 +14,4 @@ O site se adapta fluidamente a qualquer tamanho de tela.
 
 - Site em tela de 1024 pixels de largura
 
-<img src="/assets/app-tela-375px.png">
+<img src="/assets/app-tela-1024px.png">
