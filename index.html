@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <title>WeatherAPI</title>
+</head>
+<body class="d-flex flex-column align-items-center position-relative" style="min-height: 100vh;" id="fundoApp">
+    <div class="vstack align-items-center p-5">
+        <div class="hstack justify-content-center">
+            <form action="javascript:realizarConsulta()" class="w-25 shadow-lg rounded-pill" id="formPesquisa">
+                <div class="position-relative">
+                    <input type="text" class="form-control p-3 pe-5 border border-dark rounded-5 trn" id="cidadePesquisar" data-trn-holder="holderNomeCidade" placeholder="Digite o nome da cidade..." >
+                    <i class="fa fa-search position-absolute end-0 top-50 translate-middle" onclick="realizarConsulta()" style="font-size: 1.5rem; cursor: pointer;"></i>
+                </div>
+            </form>
+        </div>
+        <div class="hstack justify-content-center mt-5">
+            <h4 class="text-danger invisible" id="textoErro"><strong class="trn">Cidade não encontrada!</strong></h4>
+        </div>
+        <div class="container d-flex flex-column align-items-center bg-secondary-subtle shadow-lg justify-content-center w-50 rounded invisible p-4 text-break" id="info-clima">
+            <h2 class="text-dark m-0 p-0"><strong id="cidade"></strong></h2>
+            <p class="text-secondary fs-4 m-0" id="descricao"></p>
+            <div class="d-flex flex-row align-items-center">
+                <i class="bi bi-wind fa-2x me-2 trn" data-trn-title="tooltipVento" title="Vento"></i>
+                <p class="text-secondary fs-4 mt-2" id="velocidadeVento"></p>
+            </div>
+            <div id="icone" hidden>
+                <img id="iconeTempo" src="" alt="Icone tempo">
+            </div>
+            <h1 class="text-dark" id="temperatura"></h1>
+            
+            <div class="d-flex flex-row justify-content-evenly mt-2 w-100">
+                <div class="d-flex flex-column w-50 p-2 me-2 align-items-center bg-secondary-light justify-content-center rounded text-break"  id="temp-Min">
+                    <div class="d-flex flex-row align-items-center">
+                        <i class="bi bi-thermometer-snow fa-2x trn" data-trn-title="tooltipTempMin" title="Temperatura mínima"></i>
+                    </div>
+                    <p class="fs-4" id="temperaturaMin"></p>
+                </div>
+                <div class="d-flex flex-column w-50 p-2 align-items-center bg-secondary-light justify-content-center rounded text-break"  id="temp-Max">
+                    <div class="d-flex flex-row align-items-center">
+                        <i class="bi bi-thermometer-sun fa-2x trn" data-trn-title="tooltipTempMax" title="Temperatura máxima"></i>
+                    </div>
+                    <p class="fs-4" id="temperaturaMax"></p>
+                </div>
+            </div>
+            <div class="d-flex flex-row justify-content-evenly mt-2 w-100">
+                <div class="d-flex flex-column w-50 p-2 me-2 align-items-center bg-secondary-light justify-content-center rounded text-break"  id="nascerSol">
+                    <div class="d-flex flex-row align-items-center trn" data-trn-title="tooltipNascerSol" title="Nascer do sol">
+                        <i class="bi bi-sunrise fa-2x"></i>
+                    </div>
+                    <p class="fs-4" id="horarioNascerSol"></p>
+                </div>
+
+                <div class="d-flex flex-column w-50 p-2 align-items-center bg-secondary-light justify-content-center rounded text-break" id="porSol">
+                    <div class="d-flex flex-row align-items-center trn" title="Pôr do sol" data-trn-title="tooltipPorSol">
+                        <i class="bi bi-sunset fa-2x"></i>
+                    </div>
+                    <p class="fs-4" id="horarioPorSol"></p>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalConfig" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel"><strong class="trn">Configurações</strong></h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="d-flex flex-column">
+                        <div class="d-flex flex-row align-items-center justify-content-around">
+                            <i class="bi bi-thermometer fa-2x me-3"></i>
+                            <select class="p-2 form-select" name="temperaturas" id="possiveisTemperaturas">
+                                <option value="metric" selected class="trn">Celsius</option>
+                                <option value="imperial" class="trn">Fahrenheit</option>
+                                <option value="standard" class="trn">Kelvin</option>
+                            </select>
+                        </div>
+
+                        <div class="d-flex flex-row align-items-center justify-content-around">
+                            <i class="bi bi-globe fa-2x me-3"></i>
+                            <select class="p-2 form-select" name="linguas" id="possiveisLinguas">
+                                <option value="pt_br" selected class="trn">PortuguêsBR</option>
+                                <option value="en" class="trn">Inglês</option>
+                                <option value="fr" class="trn">Francês</option>
+                                <option value="es" class="trn">Espanhol</option>
+                                <option value="ja" class="trn">Japonês</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary trn" data-bs-dismiss="modal" id="fecharConfiguracoes">Fechar</button>
+                    <button type="button" class="btn btn-primary trn" data-bs-dismiss="modal" id="salvarConfiguracoes">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="position-left-corner grow">
+        <div class="d-flex align-items-center justify-content-center rounded-circle bg-secondary-light" id="configuracoes" data-bs-toggle="modal" data-bs-target="#modalConfig" style="width: 80px; height: 80px;">
+            <i class="bi bi-gear-fill fa-2x" style="color: #000;"></i>
+        </div>
+    </div>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/eb3998a19e.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="jquery.translate.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
