@@ -198,8 +198,13 @@ function realizarConsulta(){
 
             const corDeFundo = temperaturaParaCor(obterTemperaturaCelsius(Math.trunc(valorTemperatura)))
 
-
-            document.getElementById("fundoApp").style.background = 'linear-gradient(to left, ' + corDeFundo + ', white)';
+            if(window.screen.width <= 720) {
+                document.getElementById("fundoApp").style.background = corDeFundo
+            }
+            else{
+                document.getElementById("fundoApp").style.background = 'linear-gradient(to left, ' + corDeFundo + ', white)';
+            }
+            
 
             document.getElementById("temperaturaMin").innerHTML = valorTemperaturaMin + letraTemperatura
             document.getElementById("temperatura").innerHTML = valorTemperatura + letraTemperatura
