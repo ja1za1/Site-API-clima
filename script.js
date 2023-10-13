@@ -172,7 +172,6 @@ $("#salvarConfiguracoes").on('click', function(e) {
 function realizarConsulta(){
 
     const cidadeDigitada = document.getElementById('cidadePesquisar').value
-    
 
     var req = new XMLHttpRequest();
     req.onloadend = function(){
